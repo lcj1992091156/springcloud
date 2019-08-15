@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: IdpSaas
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.207:8848
+      config:
+        server-addr: 192.168.1.207:8848
+  profiles:
+    active: ${profile:dev}
+
+server:
+  port: ${port:8080}
+
+#基本信息
+info:
+  application: idp-saas
+  description: saas mini server
+  version: v1.0
+  author: yandeyu

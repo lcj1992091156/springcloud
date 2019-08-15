@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.idp</groupId>
+    <artifactId>spring-cloud-idp-master</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+    <modules>
+        <module>spring-cloud-idp-contract</module>
+        <module>spring-cloud-idp-client</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <dubbo.version>2.7.1</dubbo.version>
+        <nacos.client.version>1.0.1</nacos.client.version>
+        <nacos.config.version>0.8.0</nacos.config.version>
+        <java.version>1.8</java.version>
+
+        <spring-cloud-commons.version>2.1.2.RELEASE</spring-cloud-commons.version>
+        <spring-cloud-netflix.version>2.1.2.RELEASE</spring-cloud-netflix.version>
+        <spring-cloud-openfeign.version>2.1.2.RELEASE</spring-cloud-openfeign.version>
+        <spring-cloud-zookeeper.version>2.1.2.RELEASE</spring-cloud-zookeeper.version>
+        <spring-cloud-consul.version>2.1.2.RELEASE</spring-cloud-consul.version>
+        <curator.version>4.0.1</curator.version>
+
+
+        <!-- Dependency Versions -->
+        <spring-cloud-commons.version>2.1.2.RELEASE</spring-cloud-commons.version>
+        <spring-cloud-netflix.version>2.1.2.RELEASE</spring-cloud-netflix.version>
+        <spring-cloud-openfeign.version>2.1.2.RELEASE</spring-cloud-openfeign.version>
+        <spring-cloud-bus.version>2.1.2.RELEASE</spring-cloud-bus.version>
+        <spring-cloud-gateway.version>2.1.2.RELEASE</spring-cloud-gateway.version>
+
+        <junit.version>4.12</junit.version>
+        <javax-servlet-api>3.0</javax-servlet-api>
+        <slf4j-api.version>1.7.25</slf4j-api.version>
+
+
+        <!-- Maven Plugin Versions -->
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+        <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
+        <gmavenplus-plugin.version>1.6</gmavenplus-plugin.version>
+        <jacoco.version>0.8.3</jacoco.version>
+    </properties>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.6.RELEASE</version>
+        <relativePath />
+    </parent>
+	
+	<distributionManagement>
+		<repository>
+			<id>nexus-release</id>
+			<url>http://192.168.1.209:8081/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshot</id>
+			<url>http://192.168.1.209:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+</project>

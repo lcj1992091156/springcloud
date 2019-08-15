@@ -1,0 +1,53 @@
+dubbo:
+  scan:
+    base-packages: com.idp.contract.dubbo.service
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: spring-cloud://localhost
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource: 
+    name: testDatasource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.208:3307/lcntest-contract
+    username: root
+    password: rsr123
+    # 使用druid连接池
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    
+mybatis:
+  check-config-location: true                             # 是否检测MyBatis运行参数配置文件
+  mapper-locations: classpath:/mapper/**/*.xml            # 注册XML映射器
+  type-aliases-package: com.idp.contract.po               # 配置Java类型包名
+  configuration:
+    default-fetch-size: 20
+    default-statement-timeout: 30
+  #type-handlers-package: test.springboot.handlers         #自定义类型转换器
+  #executor-type: SIMPLE                                   # 指定执行器类型
+
+tx-lcn:
+  client:
+  manager-address: 127.0.0.1:8070
+  springcloud:
+    loadbalance:
+      enabled:true
+#关闭业务调用失败重试
+ribbon:
+  MaxAutoRetriesNextServer:0

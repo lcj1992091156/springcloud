@@ -1,0 +1,42 @@
+环境:
+jdk8  maven3.6+
+工程启动需要指定工作环境:
+  -Dspring.profiles.active=dev/test/prod
+DB逆向工程命令:
+  mybatis-generator:generate -e
+  generatorConfig.xml
+数据库变更需要修改：
+  generatorConfig.xml
+Nacos-Config 为我们提供哪些支持：
+  Sentinel 限流、熔断 规则的数据源
+  Server配置文件上云
+Maven:
+  本地maven setting作如下修改:
+  	<mirror>
+        <id>Nexus</id>
+        <name>Nexus</name>
+        <mirrorOf>*</mirrorOf>
+        <url>http://192.168.1.209:8081/nexus/content/groups/public/</url>
+    </mirror>
+    
+    <server>
+        <id>nexus-snapshot</id>
+        <username>admin</username>
+        <password>admin123</password>
+    </server>
+    <server>
+        <id>nexus-release</id>
+        <username>admin</username>
+        <password>admin123</password>
+    </server>
+  打包命令:
+    打包到私服: mvn deploy (注意配置maven的setting文件->server)
+    打包本地:mvn clean package
+
+
+端口集:
+lcn-tm-shell:8070
+lcn-tm-web:7970
+gitblit:8081
+gitblit-web:7100
+sentinel-web:7200

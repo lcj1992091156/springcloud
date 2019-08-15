@@ -1,0 +1,66 @@
+dubbo:
+  registry:
+    address: spring-cloud://localhost
+  cloud:
+    # 注意 当前Server需要订阅哪些Dubbo服务 需在此逐个声明 逗号分隔
+    subscribed-services: ${dubbo.cloud.subscribed-services:IdpContract}
+  application:
+    qos:
+      port: 33333
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    sentinel:
+      transport:
+        port: ${spring.cloud.sentinel.transport:8719}
+        dashboard: ${spring.cloud.sentinel.dashboard:192.168.1.207:7200}
+      datasource:
+        ds:
+          nacos:
+            server-addr: ${spring.cloud.sentinel.datasource.ds.nacos.server-addr:192.168.1.207:8848}
+            dataId: ${spring.cloud.sentinel.datasource.ds.nacos.dataId}
+            groupId: ${spring.cloud.sentinel.datasource.ds.nacos.groupId}
+            ruleType: flow
+  datasource: 
+    name: testDatasource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.208:3307/lcntest-saas
+    username: root
+    password: rsr123
+    # 使用druid连接池
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    
+mybatis:
+  check-config-location: true                             # 是否检测MyBatis运行参数配置文件
+  mapper-locations: classpath:/mapper/**/*.xml            # 注册XML映射器
+  type-aliases-package: com.idp.saas.po               # 配置Java类型包名
+  configuration:
+    default-fetch-size: 20
+    default-statement-timeout: 30
+  #config-location: classpath:/mybatis-config.xml          # 指定MyBatis运行参数配置文件位置
+  #type-handlers-package: test.springboot.handlers         #自定义类型转换器
+  #executor-type: SIMPLE                                   # 指定执行器类型
+
+tx-lcn:
+  client:
+  manager-address: ${tx-lcn.client.manager-address}
+  springcloud:
+    loadbalance:
+      enabled:true
+#关闭业务调用失败重试
+ribbon:
+  MaxAutoRetriesNextServer:0

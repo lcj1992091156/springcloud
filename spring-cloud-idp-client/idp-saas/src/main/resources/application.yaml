@@ -1,0 +1,86 @@
+idp:
+  lcn:
+    rpccontext:
+      autoBondStatus:true
+dubbo:
+  registry:
+    address: spring-cloud://localhost
+  cloud:
+    # 注意 当前Server需要订阅哪些Dubbo服务 需在此逐个声明 逗号分隔
+    subscribed-services: ${dubbo.cloud.subscribed-services:IdpContract}
+  application:
+    qos:
+      port: 22222
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    sentinel:
+      transport:
+        port: ${spring.cloud.sentinel.transport:8719}
+        dashboard: ${spring.cloud.sentinel.dashboard:192.168.1.207:7200}
+      datasource:
+        ds:
+          nacos:
+            server-addr: ${spring.cloud.sentinel.datasource.ds.nacos.server-addr:192.168.1.207:8848}
+            dataId: ${spring.cloud.sentinel.datasource.ds.nacos.dataId}
+            groupId: ${spring.cloud.sentinel.datasource.ds.nacos.groupId}
+            ruleType: flow
+  datasource: 
+    name: testDatasource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${spring.datasource.url}
+    username: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    # 使用druid连接池
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  redis:
+    cluster:
+      nodes: ${spring.redis.cluster.nodes}
+    #连接池最大连接数（使用负值表示没有限制） 
+    pool:
+      max-active: 100
+    #连接池最大阻塞等待时间（使用负值表示没有限制） 
+      max-wait: -1
+    #连接池中的最大空闲连接 
+      max-idle: 40
+    #连接池中的最小空闲连接 
+      min-idle: 20
+    #连接超时时间（毫秒） 
+    timeout: 60000
+    
+mybatis:
+  # 是否检测MyBatis运行参数配置文件
+  check-config-location: true
+  # 注册XML映射器                             
+  mapper-locations: classpath:/mapper/**/*.xml
+  # 配置Java类型包名            
+  type-aliases-package: com.idp.saas.po               
+  configuration:
+    default-fetch-size: 20
+    default-statement-timeout: 30
+  #type-handlers-package: test.springboot.handlers         #自定义类型转换器
+  #executor-type: SIMPLE                                   # 指定执行器类型
+
+tx-lcn:
+  client:
+  manager-address: ${tx-lcn.client.manager-address}
+  springcloud:
+    loadbalance:
+      enabled:true
+#关闭业务调用失败重试
+ribbon:
+  MaxAutoRetriesNextServer:0
